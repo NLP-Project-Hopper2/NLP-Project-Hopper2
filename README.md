@@ -51,17 +51,15 @@ Why is this project important?
 
 * Deliverable: prepare.py module
 * Create function that cleans data
-  * Change data type for total_charges from object to float
-  * Drop monthly_charges null values where customers have less than a month of tenure therefore no opportunity to churn
-  * Replace all instances of 'No internet service' as that information is in internet_service_type column and doing so simplifies encoding by creating binary values for many of the colums
-  * Create dummy variables for columns with object datatype
-  * Drop columns that contain duplicate information or are unnecessary
-  * Rename columns 
+  * Drop nulls and remove results in languages other than English
+  * Lowercase all letters
+  * Normalize text
+  * Create columns for stemmed data and lemmatized data 
+  * Remove stopwords
 * Create function that splits data into train, validate, and test samples
-  * Split 20% (test), 24% (validate), and 56% (train)
+  * Split 20% (test), 24% (validate), and 56% (train)???????
 * Create prepare.py to save these functions for importing
 * Test functions
-* 
 
 **Exploration**
 * Ask questions/form hypotheses
@@ -69,7 +67,10 @@ Why is this project important?
   * Question/Hypothesis
   * Question/Hypothesis
   * Question/Hypothesis
-* Create visualizations
+* Explore using visualizations
+  * Create wordclouds
+  * Explore term frequencies
+  * Explore ngrams
 * Use statistical tests to test hypotheses
 * Document answers to questions and takeaways
   * Answer
@@ -79,16 +80,17 @@ Why is this project important?
   * Key takeaway is:
 
 **Modeling**
-* Train model
-* Make predictions
-* Evaluate model
-* Compute accuracy
-* 
+* Establish a baseline
+* Determine evaluation metric
+* Build, fit and use models to make predictions
+* Compute evaluation metrics to evaluate models' performance
+* Select best model and use and evaluate on test dataset
 
 **Delivery**
-* Report will be in Notebook
+* Create Google Slides presentation
+* Create final notebook
 * Present via Zoom
-* Audience will be direct manager and their manager
+* Audience will be a general audience
 
 ### To Recreate This Project:
 * You will need an env file with your database credentials (user, password, hostname) saved to your working directory
