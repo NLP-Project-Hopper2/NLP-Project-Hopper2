@@ -1,6 +1,6 @@
 # Using Classification To Predict Programming Language
 
-(header.jpg)
+![Team Members: Alejandro Velasquez, Daniel Northcutt, Lori Ainslie, Stephanie Jones](header.jpg)
 
 ## Table of Contents
 
