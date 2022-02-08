@@ -4,17 +4,17 @@ Team Members: Alejandro Velasquez, Daniel Northcutt, Lori Ainslie, Stephanie Jon
 
 ## Table of Contents
 
-1. [Project Planning / About The Project](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#project-planning--about-the-project)
+1. [Project Planning / About The Project](#project-planning--about-the-project)
 
-2. [Acquisition](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#acquisition)
+2. [Acquisition](#acquisition)
 
-3. [Preparation](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#preparation)
+3. [Preparation](#preparation)
 
-4. [Exploration](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#exploration)
+4. [Exploration](#exploration)
 
-5. [Modeling](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#modeling)
+5. [Modeling](#modeling)
 
-6. [Delivery / Conclusion](https://github.com/NLP-Project-Hopper2/NLP-Project-Hopper2/edit/main/README.md#delivery--conclusion)
+6. [Delivery / Conclusion](#delivery--conclusion)
 
 ## Project Planning / About The Project
 
