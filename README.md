@@ -1,7 +1,6 @@
-# Using Classification To Predict Programming Language
-
 ![Team Members: Alejandro Velasquez, Daniel Northcutt, Lori Ainslie, Stephanie Jones](header.jpg)
 
+# Using Classification To Predict Programming Language
 ## Table of Contents
 
 1. [Project Planning / About The Project](#project-planning--about-the-project)
