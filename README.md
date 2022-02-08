@@ -1,12 +1,30 @@
-# Predicting 
+# Using Classification To Predict Programming Language
 
-## About the project
+Team Members: Alejandro Velasquez, Daniel Northcutt, Lori Ainslie, Stephanie Jones
+
+## Table of Contents
+
+1. [Project Planning / About The Project](#project-planning--about-the-project)
+
+2. [Acquisition](#acquisition)
+
+3. [Preparation](#preparation)
+
+4. [Exploration](#exploration)
+
+5. [Modeling](#modeling)
+
+6. [Delivery / Conclusion](#delivery--conclusion)
+
+## Project Planning / About The Project
 
 ### Project Goal
 
 * To build a classification model that can predict the programming language of a repository, given the text of the README file
 
 ### Project Description
+
+For this project, we scraped data from GitHub repositories about Bots and built models to predict the programming language based on the README contents.
 
 Why is this project important?
 
@@ -27,27 +45,18 @@ Why is this project important?
 | repository | object | repository link |
 | language   | object | programming language used for the project  |
 
-
-### Project Planning
-
-**Planning**
-
-* Deliverable: Trello Board
-* Define goals
-* Determine audience and delivery format
-* What is my MVP?
-* Ask questions/formulate hypotheses
+[Trello Board](https://trello.com/b/KFt1reNg/githublanguage-prediction)
 
 
-**Acquisition**
+## Acquisition
 
 * Deliverable: acquire.py module
 * Create function for scraping github, caching, and reading in data
-* Create acquire.py to save these functions for importing
+* Save functions to an acquire.py for importing
 * Test functions
 
 
-**Preparation**
+## Preparation
 
 * Deliverable: prepare.py module
 * Create function that cleans data
@@ -58,10 +67,11 @@ Why is this project important?
   * Remove stopwords
 * Create function that splits data into train, validate, and test samples
   * Split 20% (test), 24% (validate), and 56% (train)???????
-* Create prepare.py to save these functions for importing
+* Save functions to a prepare.py for importing
 * Test functions
 
-**Exploration**
+## Exploration
+
 * Ask questions/form hypotheses
   * Question/Hypothesis
   * Question/Hypothesis
@@ -79,35 +89,40 @@ Why is this project important?
   * Answer
   * Key takeaway is:
 
-**Modeling**
+## Modeling
+
 * Establish a baseline
 * Determine evaluation metric
 * Build, fit and use models to make predictions
 * Compute evaluation metrics to evaluate models' performance
 * Select best model and use and evaluate on test dataset
+* Document takeaways
 
-**Delivery**
+## Delivery / Conclusion
+
 * Create Google Slides presentation
 * Create final notebook
 * Present via Zoom
 * Audience will be a general audience
 
-### To Recreate This Project:
-* You will need an env file with your database credentials (user, password, hostname) saved to your working directory
+### Recommendations and Next Steps
+
+* Recommendation
+* Recommendation
+
+* With more time and resources, .....
+
+### Steps to Recreate:
+
+* Make a github personal access token.
+  1. Go here and generate a personal access token https://github.com/settings/tokens (don't need to select any scopes)
+  2. Create an env.py file in your working directory 
+  3. Save it in your env.py file under the variable `github_token`
+  4. Add your github username to your env.py file under the variable `github_username`
 * Create a gitignore and add your env file to prevent your credentials from getting pushed to Github
 * Download the aquire.py and prepare.py files to your working directory
-* Download the telco_classification_project_final notebook to your working directory
+* Download the ????_final notebook to your working directory
 * Read this README.md
-* Run the telco_classification_project_final.ipynb notebook
+* Run the ?????_final.ipynb notebook
 
-### Recommendations and Next Steps
-* Reduce monthly price for fiber optic internet service
-
-* Send out quarterly customer satisfaction surveys for better insights
-
-* With more time and resources, would like to collect and explore customer satisfaction data
-
-
-### ALL START TEAM REPRESENT!!!
-
-https://trello.com/b/KFt1reNg/githublanguage-prediction
+### ALL STAR TEAM REPRESENT!!!
