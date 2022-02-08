@@ -66,7 +66,7 @@ Why is this project important?
   * Create columns for stemmed data and lemmatized data 
   * Remove stopwords
 * Create function that splits data into train, validate, and test samples
-  * Split 20% (test), 24% (validate), and 56% (train)???????
+  * Split 20% (test), 24% (validate), and 56% (train)
 * Save functions to a prepare.py for importing
 * Test functions
 
