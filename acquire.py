@@ -23,10 +23,16 @@ from env import github_token, github_username
 # TODO: Add more repositories to the `REPOS` list below.
 
 REPOS = [
-    "gocodeup/codeup-setup-script",
-    "gocodeup/movies-application",
-    "torvalds/linux",
-]
+    "python-discord/bot",
+    "discord-tickets/bot",
+    "go-chat-bot/bot",
+    "SuMaiKaDe/bot",
+    "microsoft/BotBuilder-Samples",
+    "GAwesomeBot/bot",
+    "roughike/BottomBar",
+    "mithun-prasad/Bot",
+    "boto/boto3",
+    "thinkpixellab/bot"]
 
 headers = {"Authorization": f"token {github_token}", "User-Agent": github_username}
 
