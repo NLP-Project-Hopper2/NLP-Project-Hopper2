@@ -25,7 +25,7 @@
 
 For this project, we scraped data from GitHub repositories about Bots and built models to predict the programming language based on the README contents.
 
-Why is this project important?
+Having a model that classifies observations based on text data collected is a great tool and can be applied in many business situations to provide valuable insights.
 
 ### Initial Hypotheses/Questions
 
@@ -41,8 +41,10 @@ Why is this project important?
 
 |   Column_Name   | dtype | Description      |
 |   -----------   | ----------- | ---------- |
-| repository | object | repository link |
-| language   | object | programming language used for the project  |
+| repo | object | the github repository name |
+| language   | object | programming language used for the project |
+| readme_contents   | object | the original readme contents scraped from github |
+| lemmatized   | object | readme contents that have been cleaned, normalized, tokenized, & lemmatized |
 
 [Trello Board](https://trello.com/b/KFt1reNg/githublanguage-prediction)
 
@@ -116,12 +118,12 @@ Why is this project important?
 * Make a github personal access token.
   1. Go here and generate a personal access token https://github.com/settings/tokens (don't need to select any scopes)
   2. Create an env.py file in your working directory 
-  3. Save it in your env.py file under the variable `github_token`
+  3. Save the personal access token in your env.py file under the variable `github_token`
   4. Add your github username to your env.py file under the variable `github_username`
 * Create a gitignore and add your env file to prevent your credentials from getting pushed to Github
 * Download the aquire.py and prepare.py files to your working directory
-* Download the ????_final notebook to your working directory
+* Download the 00_final_report.ipynb notebook to your working directory
 * Read this README.md
-* Run the ?????_final.ipynb notebook
+* Run the 00_final_report.ipynb notebook
 
 ### ALL STAR TEAM REPRESENT!!!
