@@ -1,6 +1,7 @@
 import unicodedata
 import re
 import json
+import os
 
 import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
@@ -114,21 +115,25 @@ def remove_stopwords(string, extra_words=[], exclude_words=[]):
 
 #### MAIN FUNCTION ####
 
-def prep_article_data(df, column = 'readme_contents', extra_words=[], exclude_words=[]):
+def prep_article_data(extra_words=[], exclude_words=[]):
     '''
     This function take in a df and the string name for a text column with 
     option to pass lists for extra_words and exclude_words and
     returns a df with the text article title, original text, stemmed text,
     lemmatized text, cleaned, tokenized, & lemmatized text with stopwords removed.
     '''
-    df['clean'] = df[column].apply(basic_clean)\
+    column = 'readme_contents'
+
+    df = acquire.scrape_github_data()
+
+    df['clean'] = df[column].astype(str).apply(basic_clean)\
                             .apply(tokenize)\
                             .apply(remove_stopwords, 
                                 extra_words=extra_words, 
                                 exclude_words=exclude_words)
     
-    df['stemmed'] = df['clean'].apply(stem)
-    df['lemmatized'] = df['stemmed'].apply(lemmatize)
+    # df['stemmed'] = df['clean'].apply(stem)
+    df['lemmatized'] = df['clean'].apply(lemmatize)
     
     return df
 
@@ -156,18 +161,37 @@ def get_top_5_languages(df):
     df = df[mask]
     return df
 
-#### Filter Data w/ Functions 
-def filter_data(df):
+#### Final Clean and Filter Data w/ Functions 
+def clean_and_filter_data():
     '''
-    This function takes in a cleaned df, drops null values, removes repos that are 
-    not english, and removes repos in a language outside of the top 5 languages.
+    This function checks for a local csv file with the cleaned and filtered data. If
+    one exists, it reads it to a df and returns that df.
+    
+    It a local csv of cleaned and filtered data does not exist it takes the raw data
+    (aquired from the acquire module) and calls the above functions to clean and filter
+    the raw data, dropping null values, removing repos that are 
+    not english, and removing repos in a language outside of the top 5 languages. It then 
+    drops the duplicated index columns and caches the cleaned and filtered data to csv local
+    csv file.
     '''
-    # drops nulls
-    df = df.dropna()
-    # drops repos that readme is not written in English
-    df =df[df.readme_contents.apply(isEnglish) == True]
-    # pulls top 5 languages
-    df = get_top_5_languages(df)
+    if os.path.isfile('clean_data.csv'):
+        df = pd.read_csv('clean_data.csv')
+
+    else:
+        df = prep_article_data()
+        
+        # drops nulls
+        df.dropna(inplace = True)
+        # drops repos that readme is not written in English
+        df =df[df.readme_contents.apply(isEnglish) == True]
+        # pulls top 5 languages
+        df = get_top_5_languages(df)
+
+        # dropping duplicated index columns
+        df.drop(columns = ['Unnamed: 0', 'Unnamed: 0.1'], inplace = True)
+
+        # caching
+        df.to_csv('clean_data.csv')
 
     return df
     
@@ -177,9 +201,6 @@ def split_data(df):
     This function takes in fully cleaned, filtered and prepared data (in df) and splits
     data into train, validate and test dfs.
     '''
-
-    # dropping dup index col
-    df.drop(columns = ['Unnamed: 0'], inplace = True)
 
     # splitting
     train, test = train_test_split(df, test_size = .2, random_state = 123, stratify = df.language)
