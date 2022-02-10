@@ -1,3 +1,6 @@
+import pandas as pd
+import os
+
 #### Pulled from class will need to add values
 
 """
@@ -12,7 +15,6 @@ import os
 import json
 from typing import Dict, List, Optional, Union, cast
 import requests
-import pandas as pd
 
 from env import github_token, github_username
 
@@ -699,16 +701,24 @@ def process_repo(repo: str) -> Dict[str, str]:
     }
 
 
-def scrape_github_data() -> List[Dict[str, str]]:
+def scrape_github_data():
     """
-    Checks for csv file with data, if exists locally reads to df.
-    If no local data file, loops through all of the repos and process them. Returns the processed data.
-    """
-    if os.path.isfile('NLP.csv'):
-        return pd.read_csv('NLP.csv')
+    This function checks for a local csv file of raw data. If a local csv exists it reads it 
+    to a df.
     
+    If no local csv of raw data exists, it loops through all of the repos in the REPOS list above and
+    and runs the process functions to scrape the repo name, language, and readme
+    contents. It then writes the resulting dictionary of lists to a df, returning
+    a dataframe of raw data. It then caches the raw data to a local csv file.
+    """
+    if os.path.isfile('raw_data.csv'):
+        df = pd.read_csv('raw_data.csv')
+
     else:
-        return [process_repo(repo) for repo in REPOS]
+        df = pd.DataFrame([process_repo(repo) for repo in REPOS])
+        df.to_csv('raw_data.csv')
+
+    return df
 
 
 if __name__ == "__main__":
