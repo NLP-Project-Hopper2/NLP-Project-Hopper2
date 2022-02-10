@@ -138,6 +138,25 @@ def c_logo():
     plt.show()
 
     return
+    #################
+
+def c_logo2():
+    ''' The function pushes a word cloud with the C# logo as the background'''
+
+    plt.figure(figsize=(16,9))
+    mask = np.array(Image.open("images/c_inv.png"))
+
+    wc = WordCloud(background_color="white", width=800, height=400, contour_width=2, contour_color='black',mask=mask)
+    # generate word cloud
+    wc.generate_from_frequencies(word_counts['c_words'])
+
+    # show
+    plt.imshow(wc, interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
+
+    return
+
 
     #################
 def ts_logo():

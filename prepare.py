@@ -180,6 +180,7 @@ def clean_and_filter_data():
     '''
     if os.path.isfile('clean_data.csv'):
         df = pd.read_csv('clean_data.csv')
+        
 
     else:
         df = prep_article_data()
@@ -195,7 +196,7 @@ def clean_and_filter_data():
         df.drop(columns = ['Unnamed: 0', 'Unnamed: 0.1'], inplace = True)
 
         # caching
-        df.to_csv('clean_data.csv')
+        df.to_csv('clean_data.csv', index = False)
 
     return df
     
