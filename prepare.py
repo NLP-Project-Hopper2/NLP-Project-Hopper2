@@ -171,6 +171,5 @@ def filter_data(df):
     df =df[df.readme_contents.apply(isEnglish) == True]
     # pulls top 5 languages
     df = get_top_5_languages(df)
-    train, validate, test = split_data(df)
 
-    return train, validate, test
+    return df
