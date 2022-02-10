@@ -196,7 +196,7 @@ def clean_and_filter_data():
     return df
     
 ###Splitzzy
-def split_data(df):
+def split_data(df = clean_and_filter_data()):
     '''
     This function takes in fully cleaned, filtered and prepared data (in df) and splits
     data into train, validate and test dfs.
