@@ -134,6 +134,10 @@ def prep_article_data(extra_words=[], exclude_words=[]):
     
     # df['stemmed'] = df['clean'].apply(stem)
     df['lemmatized'] = df['clean'].apply(lemmatize)
+
+    # create columns with character and word counts of readme text
+    df = df.assign(character_count= df.lemmatized.str.len(), 
+                    word_count=df.lemmatized.str.split().apply(len))
     
     return df
 
