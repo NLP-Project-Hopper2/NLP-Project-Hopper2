@@ -147,24 +147,21 @@ def isEnglish(s):
 ####
 
 def get_top_5_languages(df):
-    '''This function filters for just the top 5 languages and drops the rest'''
+    '''This function takes in a cleaned df and filters for just the top 5 
+    languages, dropping the rest. This is a subfunction that will be added to the filter
+    function which will produce the final prepared df, prior to splitting.'''
+
     top5_list = list(df.language.value_counts().head(5).index)
     mask = df.language.apply(lambda x: x in top5_list)
     df = df[mask]
     return df
 
-###Splitzzy
-def split_data(df):
-    '''
-    Takes in a dataframe and returns train, validate, and test subset dataframes. 
-    '''
-    train, test = train_test_split(df, test_size = .2, random_state = 123)
-    train, validate = train_test_split(train, test_size = .3, random_state = 123)
-    return train, validate, test
-
-
-#### Filter Data w/ Functions and splits data into train, validate, & test
+#### Filter Data w/ Functions 
 def filter_data(df):
+    '''
+    This function takes in a cleaned df, drops null values, removes repos that are 
+    not english, and removes repos in a language outside of the top 5 languages.
+    '''
     # drops nulls
     df = df.dropna()
     # drops repos that readme is not written in English
@@ -173,3 +170,20 @@ def filter_data(df):
     df = get_top_5_languages(df)
 
     return df
+    
+###Splitzzy
+def split_data(df):
+    '''
+    This function takes in fully cleaned, filtered and prepared data (in df) and splits
+    data into train, validate and test dfs.
+    '''
+
+    # dropping dup index col
+    df.drop(columns = ['Unnamed: 0'], inplace = True)
+
+    # splitting
+    train, test = train_test_split(df, test_size = .2, random_state = 123, stratify = df.language)
+    train, validate = train_test_split(train, test_size = .3, random_state = 123)
+    return train, validate, test
+
+
