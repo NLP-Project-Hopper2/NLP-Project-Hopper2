@@ -181,7 +181,7 @@ def clean_and_filter_data():
         df = prep_article_data()
         
         # drops nulls
-        df = df.dropna()
+        df.dropna(inplace = True)
         # drops repos that readme is not written in English
         df =df[df.readme_contents.apply(isEnglish) == True]
         # pulls top 5 languages
