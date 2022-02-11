@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import scipy.stats as stats
+plt.style.use('seaborn-whitegrid')
 
 import prepare
 
