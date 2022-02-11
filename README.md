@@ -19,7 +19,7 @@
 
 ### Project Goal
 
-* To build a classification model that can predict the programming language of a repository, given the text of the README file
+* To build a classification model that can predict the programming language of a repository based on the text of the repository's `README.md` file.
 
 ### Project Description
 
@@ -39,12 +39,30 @@ Having a model that classifies observations based on text data collected is a gr
 
 ### Data dictionary
 
-|   Column_Name   | dtype | Description      |
-|   -----------   | ----------- | ---------- |
-| repo | object | the github repository name |
-| language   | object | programming language used for the project |
-| readme_contents   | object | the original readme contents scraped from github |
-| lemmatized   | object | readme contents that have been cleaned, normalized, tokenized, & lemmatized |
+Target | Dtype | Description
+:-- | :-- | :--
+`language` | object | description
+
+<hr>
+
+Model Feature | Dtype | Description
+:-- | :-- | :--
+`repo` | object | Name of GitHub repo used to extract data
+`readme_contents` | object | Repo's README.md 
+`clean` | object | remove any inconsistencies in unicode characters from readme_contents. Converted the resulting string to the ASCII character set and turned the resulting bytes object back into a string 
+`lemmatized` | object | turns data in `clean` into root words, also known as the lemma 
+`word_count` | int64 | counts the words in the `lemmatized` column 
+`char_count` | int64 | counts the characters in the `lemmatized` column 
+
+<hr>
+
+Language | Description
+:-- | :--
+`Python` |  an interpreted, object-oriented, high-level programming language with dynamic semantics
+`JavaScript` | object-oriented computer programming language commonly used to create interactive effects within web browsers
+`C#` |  is a general-purpose, multi-paradigm programming language
+`TypeScript` | language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript and adds optional static typing to the language
+`Java` | Java is a general-purpose programming language that is class-based and object-oriented
 
 [Trello Board](https://trello.com/b/KFt1reNg/githublanguage-prediction)
 
