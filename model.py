@@ -31,16 +31,10 @@ import prepare
 def X_train_split(X_data, y_data):
     ''' Further splitting for X & y train,validate,test
     '''
-    #pull csv
-    df = pd.read_csv('NLP.csv')
-    #cleaning
-    df = df.reset_index().drop(columns = 'index')
-    df = prepare.filter_data(df)
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
 
-    ### dropping these columns & splitting data
-    columns_drop = ['readme_contents', 'clean', 'stemmed']
-    df = df.drop(columns_drop, 1)
-    train, validate, test = prepare.split_data(df)
+
     ###
 
     # Count Vectorizer using bag of words - defining X & y variables
@@ -66,34 +60,48 @@ def X_train_split(X_data, y_data):
 #######################################
 
 def baseline_accuracy():
-    df = pd.read_csv('NLP.csv')
-    df = df.reset_index().drop(columns = 'index')
-    df = prepare.filter_data(df)
-    train, validate, test = prepare.split_data(df)
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
+    
     return print(f'Baseline Accuracy: {round(max(train.language.value_counts()) / train.shape[0] *100,2)}%')
 
 #######################################
+def logistic_regression_tfidf():
+    
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
+    tfidf = TfidfVectorizer()
+    X = tfidf.fit_transform(train.lemmatized)
+    y = train.language
+    X_train, y_train, X_validate, y_validate, X_test, y_test = X_train_split(X, y)
+    train = pd.DataFrame(dict(actual=y_train))
+    validate = pd.DataFrame(dict(actual=y_validate))
+    test = pd.DataFrame(dict(actual=y_test))
 
+    lm = LogisticRegression().fit(X_train, y_train)
 
-
-
-
+    #form predictions
+    train['predicted'] = lm.predict(X_train)
+    validate['predicted'] = lm.predict(X_validate)
+    test['predicted'] = lm.predict(X_test)
+    print('Train Accuracy: {:.2%}'.format(accuracy_score(train.actual, train.predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(train.predicted, train.actual))
+    print('---')
+    print(classification_report(train.actual, train.predicted))
+    print('----------------------------------------------')
+    print('Validate Accuracy: {:.2%}'.format(accuracy_score(validate.actual, validate.predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(validate.predicted, validate.actual))
+    print('---')
+    print(classification_report(validate.actual, validate.predicted))
 
 
 #######################################
-#pull csv
-df = pd.read_csv('NLP.csv')
-
-#cleaning
-df = df.reset_index().drop(columns = 'index')
-df = prepare.filter_data(df)
-
-
-### dropping these columns & splitting data
-columns_drop = ['readme_contents', 'clean', 'stemmed']
-df = df.drop(columns_drop, 1)
-train, validate, test = prepare.split_data(df)
-###
+raw_data = acquire.scrape_github_data()
+train, validate, test = prepare.split_data()
 
 # Count Vectorizer using bag of words - defining X & y variables
 cv = CountVectorizer()
@@ -103,13 +111,27 @@ y = train.language
 # function as above
 X_train, y_train, X_validate, y_validate, X_test, y_test = X_train_split(X, y)
 
-def BoW_Decision_tree(X_train, y_train, X_validate, y_validate, X_test, y_test):
+def BoW_Decision_tree():
+    
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
+
+    # Count Vectorizer using bag of words - defining X & y variables
+    cv = CountVectorizer()
+    X = cv.fit_transform(train.lemmatized)
+    y = train.language
+
+    # function as above
+    X_train, y_train, X_validate, y_validate, X_test, y_test = X_train_split(X, y)
+    
+    
+    
     train = pd.DataFrame(dict(actual=y_train))
     validate = pd.DataFrame(dict(actual=y_validate))
     test = pd.DataFrame(dict(actual=y_test))
 
 
-    tree = DecisionTreeClassifier(max_depth=6).fit(X_train, y_train)
+    tree = DecisionTreeClassifier(max_depth=5).fit(X_train, y_train)
     train['tree_predicted'] = tree.predict(X_train)
     validate['tree_predicted'] = tree.predict(X_validate)
     test['tree_predicted'] = tree.predict(X_test)
@@ -128,15 +150,96 @@ def BoW_Decision_tree(X_train, y_train, X_validate, y_validate, X_test, y_test):
     print('---')
     print(classification_report(validate.actual, validate.tree_predicted))
 
-    #######################################
+#######
+def BoW_Random_Forest():
+        
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
 
-def test_model(X_train, y_train, X_validate, y_validate, X_test, y_test):
+    # Count Vectorizer using bag of words - defining X & y variables
+    cv = CountVectorizer()
+    X = cv.fit_transform(train.lemmatized)
+    y = train.language
+
+    # function as above
+    X_train, y_train, X_validate, y_validate, X_test, y_test = X_train_split(X, y)
+    
+    
     train = pd.DataFrame(dict(actual=y_train))
     validate = pd.DataFrame(dict(actual=y_validate))
     test = pd.DataFrame(dict(actual=y_test))
 
 
-    tree = DecisionTreeClassifier(max_depth=6).fit(X_train, y_train)
+    forest = RandomForestClassifier(min_samples_leaf = 1, max_depth = 8, random_state= 123).fit(X_train, y_train)
+
+
+
+    train['forest_predicted'] = forest.predict(X_train)
+    validate['forest_predicted'] = forest.predict(X_validate)
+    test['forest_predicted'] = forest.predict(X_test)
+
+    print('Accuracy: {:.2%}'.format(accuracy_score(train.actual, train.forest_predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(train.forest_predicted, train.actual))
+    print('---')
+    print(classification_report(train.actual, train.forest_predicted))
+    print('----------------------------------------------')
+    print('Validate Performance: {:.2%}'.format(accuracy_score(validate.actual, validate.forest_predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(validate.forest_predicted, validate.actual))
+    print('---')
+    print(classification_report(validate.actual, validate.forest_predicted))
+
+
+    #######################################
+
+
+
+    train = pd.DataFrame(dict(actual=y_train))
+    validate = pd.DataFrame(dict(actual=y_validate))
+    test = pd.DataFrame(dict(actual=y_test))
+
+
+    tree = DecisionTreeClassifier(max_depth=4).fit(X_train, y_train)
+    train['tree_predicted'] = tree.predict(X_train)
+    validate['tree_predicted'] = tree.predict(X_validate)
+    test['tree_predicted'] = tree.predict(X_test)
+
+    print('Accuracy: {:.2%}'.format(accuracy_score(train.actual, train.tree_predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(train.tree_predicted, train.actual))
+    print('---')
+    print(classification_report(train.actual, train.tree_predicted))
+    print('----------------------------------------------')
+    print('Validate Accuracy: {:.2%}'.format(accuracy_score(validate.actual, validate.tree_predicted)))
+    print('---')
+    print('Confusion Matrix')
+    print(pd.crosstab(validate.tree_predicted, validate.actual))
+    print('---')
+    print(classification_report(validate.actual, validate.tree_predicted))
+
+
+    #######################################
+
+def test_model_rf():
+            
+    raw_data = acquire.scrape_github_data()
+    train, validate, test = prepare.split_data()
+
+    # Count Vectorizer using bag of words - defining X & y variables
+    cv = CountVectorizer()
+    X = cv.fit_transform(train.lemmatized)
+    y = train.language
+
+    train = pd.DataFrame(dict(actual=y_train))
+    validate = pd.DataFrame(dict(actual=y_validate))
+    test = pd.DataFrame(dict(actual=y_test))
+
+
+    tree = DecisionTreeClassifier(max_depth=5).fit(X_train, y_train)
     train['tree_predicted'] = tree.predict(X_train)
     validate['tree_predicted'] = tree.predict(X_validate)
     test['tree_predicted'] = tree.predict(X_test)
@@ -148,10 +251,3 @@ def test_model(X_train, y_train, X_validate, y_validate, X_test, y_test):
     print('---')
     print(classification_report(test.actual, test.tree_predicted))
 
-        #print('----------------------------------------------')
-        #print('Validate Accuracy: {:.2%}'.format(accuracy_score(validate.actual, validate.tree_predicted)))
-        #print('---')
-        #print('Confusion Matrix')
-        #print(pd.crosstab(validate.tree_predicted, validate.actual))
-        #print('---')
-        #print(classification_report(validate.actual, validate.tree_predicted))

@@ -19,9 +19,9 @@ import prepare
 ###############
 
 ### Gathering Data from CSV and splitting
-df = pd.read_csv('NLP.csv')
-df = df.reset_index().drop(columns = 'index')
-train, validate, test = prepare.split_data(df)
+raw_data = acquire.scrape_github_data()
+train, validate, test = prepare.split_data()
+
 
 
 ##########
