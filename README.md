@@ -89,7 +89,7 @@ Having a model that classifies observations based on text data collected is a gr
   * In the plotted graphs, there do appear to be a differences in average character and word count but statistical testing shows that this difference is not statistically significant
   * 'Bot', 'use', and 'using' are top words found across all the languages.
 * Key takeaways:
-  * Python and JavaScript are the most popular programming languages for bot projects. Both languages have the 
+  * Python and JavaScript are the most popular programming languages for bot projects. Both languages have the highest character and word counts. Average word count or character counts by language are not statistically different, therefore, not good features to use for modeling.
 
 ## Modeling
 
