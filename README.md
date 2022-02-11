@@ -33,9 +33,7 @@ Having a model that classifies observations based on text data collected is a gr
 
 * Is there any correlation between character and word count?
 
-* Is there a difference in average word count among the languages?
-
-* Is there a difference in average character count among the languages?
+* Is there a difference in average word count or character count among the languages?
 
 * Are any of the top 25 words found across all the languages?
 
@@ -95,8 +93,8 @@ Having a model that classifies observations based on text data collected is a gr
 
 ## Modeling
 
-* Establish a baseline
-* Determine evaluation metric
+* Establish a baseline using mode
+* Determine evaluation metric: accuracy
 * Build, fit and use models to make predictions
 * Compute evaluation metrics to evaluate models' performance
 * Select best model and use and evaluate on test dataset
@@ -111,10 +109,9 @@ Having a model that classifies observations based on text data collected is a gr
 
 ### Recommendations and Next Steps
 
-* Recommendation
-* Recommendation
+* The recommendation is to apply this model to larger datasets as we discovered that categories with less representation in smaller datasets do not hold much weight in the predictions. Therefore, all new data is classified as only those categories most prevalent in the data.
 
-* With more time and resources, .....
+* With more time and resources, we would like to do more feature engineering to see if ngrams or other word combinations would be better predictors of language.
 
 ### Steps to Recreate:
 
