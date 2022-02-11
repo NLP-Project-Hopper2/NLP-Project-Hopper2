@@ -29,13 +29,15 @@ Having a model that classifies observations based on text data collected is a gr
 
 ### Initial Hypotheses/Questions
 
-* Question/Hypothesis
+* Which language is represented most frequently in the data?
 
-* Question/Hypothesis
+* Is there any correlation between character and word count?
 
-* Question/Hypothesis
+* Is there a difference in average word count among the languages?
 
-* Question/Hypothesis
+* Is there a difference in average character count among the languages?
+
+* Are any of the top 25 words found across all the languages?
 
 ### Data dictionary
 
@@ -74,21 +76,22 @@ Having a model that classifies observations based on text data collected is a gr
 ## Exploration
 
 * Ask questions/form hypotheses
-  * Question/Hypothesis
-  * Question/Hypothesis
-  * Question/Hypothesis
-  * Question/Hypothesis
+  * Which language is represented most frequently in the data?
+  * Is there any correlation between character and word count?
+  * Is there a difference in average word count or character count among the languages?
+  * Are any of the top 25 words found across all the languages?
 * Explore using visualizations
   * Create wordclouds
   * Explore term frequencies
   * Explore ngrams
 * Use statistical tests to test hypotheses
 * Document answers to questions and takeaways
-  * Answer
-  * Answer
-  * Answer
-  * Answer
-  * Key takeaway is:
+  * Python is the language most frequently used for bot projects. It is the primary language for almost half of the repositories represented in the data.
+  * There is a positive correlation between character count and word count. Python and JavaScript have the highest counts.
+  * In the plotted graphs, there do appear to be a differences in average character and word count but statistical testing shows that this difference is not statistically significant
+  * 'Bot', 'use', and 'using' are top words found across all the languages.
+* Key takeaways:
+  * Python and JavaScript are the most popular programming languages for bot projects. Both languages have the 
 
 ## Modeling
 
