@@ -229,3 +229,16 @@ def top_25_freq(train):
 
     plt.title('Bot, Use, and Using Commonly Used Across All Languages\n')
     plt.show()
+    
+###########################################################    
+def post_explore_info(train, validate, test):
+    """
+    Function displays information on data after explore functioas are applied
+    and datat is explit into `train`, `validate` and `test`
+    """
+    print(f"Records in Train data set    =  {train.shape[0]}")
+    print(f"Records in Validate data set =  {validate.shape[0]}")
+    print(f"Records in Test data set     =  {test.shape[0]}")
+    print('------------------------------------')
+    print('------------ Data Info -------------')
+    return train.info()    
