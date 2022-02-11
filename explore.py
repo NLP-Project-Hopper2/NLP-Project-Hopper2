@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import scipy.stats as stats
+
 import prepare
 
 def new_features(train, validate, test):
@@ -34,4 +36,36 @@ def language_count(train):
                                                     '#f3993aff'], figsize = (12, 7))
     # adding title
     plt.title('Python Makes up Almost Half of Programming Languages\n')
-    plt.show();
+    plt.show()
+
+def word_count(train):
+    '''
+    This function takes in the train df and creates and df of the average word count and freq per language.
+    It the plots the language frequencies on a barplot.
+    '''
+
+    # creating dfs for word count and freq
+    word_count = pd.DataFrame(train.groupby('language').word_count.mean().sort_values())
+    word_count['freq'] = round(word_count.word_count / word_count.word_count.sum(), 3)
+
+    # plotting viz
+    word_count.freq.sort_values(ascending = False).plot.barh(color = ['#b7b7b7ff', '#b7b7b7ff', '#b7b7b7ff', \
+                                                                    '#b7b7b7ff', '#4a86e8ff'], figsize = (12, 7))
+    plt.title('Except for TypeScript, Most Languages Average ~20% of Total Word Count\n')
+    plt.show()
+
+def char_count(train):
+    '''
+    This function takes in the train df and creates and df of the average character count and freq per language.
+    It the plots the language frequencies on a barplot.    
+    '''
+
+    # creating df for character count and freq
+    char_count = pd.DataFrame(train.groupby('language').char_count.mean().sort_values())
+    char_count['freq'] = round(char_count.char_count / char_count.char_count.sum(), 3)
+
+    # plotting viz
+    char_count.freq.plot.barh(color = ['#b7b7b7ff', '#b7b7b7ff', '#b7b7b7ff', \
+                                    '#b7b7b7ff', '#f3993aff'], figsize = (12, 7))
+    plt.title('C# Has Almost a Quarter of Average Character Count Compared to Total Character Count Across All Languages\n')
+    plt.show()
